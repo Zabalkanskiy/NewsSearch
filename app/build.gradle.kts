@@ -65,4 +65,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
 
+    // rxJava
+    val rxJava_version = "3.1.8"
+    implementation("io.reactivex.rxjava3:rxjava:$rxJava_version")
+
 }
