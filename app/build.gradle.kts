@@ -50,6 +50,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    //fragment+ktx
+    val fragment_version = "1.6.2"
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
+
     //dagger
     val dagger_version = "2.49"
     implementation("com.google.dagger:dagger:$dagger_version")
