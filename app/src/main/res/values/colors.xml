@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="system_prymary_color">#009EBD</color>
+    <color name="checked_on_icon">#00829C</color>
+    <color name="surface">#F8F9FB</color>
+    <color name="text_color">#40484B</color>
 </resources>
