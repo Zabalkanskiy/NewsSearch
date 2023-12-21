@@ -26,6 +26,3 @@ class ApiResponseDeserializer : JsonDeserializer<ApiResponse> {
 }
 
 // Создайте экземпляр Gson с зарегистрированным десериализатором ApiResponseDeserializer
-val gson = GsonBuilder()
-    .registerTypeAdapter(ApiResponse::class.java, ApiResponseDeserializer())
-    .create()
