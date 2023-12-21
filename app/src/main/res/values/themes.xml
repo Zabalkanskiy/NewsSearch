@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AstonIntensivFinal" parent="Theme.Material3.DayNight.NoActionBar">
+
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Theme.AstonIntensivFinal" parent="Base.Theme.AstonIntensivFinal" />
+    <style name="Theme.AstonIntensivFinal" parent="Base.Theme.AstonIntensivFinal" >
+        <item name="android:fontFamily">@font/roboto_regular</item>
+
+    </style>
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/checked_on_icon</item>
+    </style>
+
 </resources>
