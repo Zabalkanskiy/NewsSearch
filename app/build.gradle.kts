@@ -64,10 +64,14 @@ dependencies {
 
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:$retrofit_version")
 
     // rxJava
     val rxJava_version = "3.1.8"
     implementation("io.reactivex.rxjava3:rxjava:$rxJava_version")
+
+    val rxAndroid_version = "3.0.2"
+    implementation("io.reactivex.rxjava3:rxandroid:$rxAndroid_version")
 
     //room
     val room_version = "2.6.1"
@@ -86,5 +90,28 @@ dependencies {
     // optional - RxJava3 support for Room
     implementation("androidx.room:room-rxjava3:$room_version")
 
+    //moxy
+    val moxyVersion = "2.2.2"
+    implementation("com.github.moxy-community:moxy:$moxyVersion")
+    implementation("com.github.moxy-community:moxy-ktx:$moxyVersion")
+    implementation("com.github.moxy-community:moxy-androidx:$moxyVersion")
+    kapt("com.github.moxy-community:moxy-compiler:$moxyVersion")
 
+    // Coroutines
+    val coroutines_version = "1.7.3"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+
+
+
+
+    // LiveData
+    val lifeCycleVersion ="2.6.2"
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleVersion")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion")
+
+    val glideVersion = "4.16.0"
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
 }
