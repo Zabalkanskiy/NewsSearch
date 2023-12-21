@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Aston Intensiv Final</string>
+    <string name="headlines">Headlines</string>
+    <string name="saved">Saved</string>
+    <string name="sour_es">Sourсes</string>
+    <string name="news_app">News APP</string>
+    <string name="search">Search</string>
+    <string name="headline_search">Headline search</string>
+    <string name="filter">Filter</string>
+    <string name="headline_filter">Headline Filter</string>
+    <string name="placeholder_name_news">CNN</string>
+    <string name="placeholder_news">First Republic stocks drops nearly 50% after plunge in depositsdfsdfsdfgdfkkdfgkdfg kdgfkdflgdfl;gkdflkgd </string>
+    <string name="image_news">image news</string>
+    <string name="bage_news">Bage news</string>
+    <string name="general">General</string>
+    <string name="categoty_headlines">Categoty_headlines</string>
 </resources>
