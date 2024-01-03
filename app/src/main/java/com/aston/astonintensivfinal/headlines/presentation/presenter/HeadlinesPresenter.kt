@@ -1,10 +1,10 @@
-package com.aston.astonintensivfinal.headlines.presenter
+package com.aston.astonintensivfinal.headlines.presentation.presenter
 
 import com.aston.astonintensivfinal.AstonIntensivApplication
 import com.aston.astonintensivfinal.data.Article
 import com.aston.astonintensivfinal.data.ErrorResponce
 import com.aston.astonintensivfinal.data.NewApiResponce
-import com.aston.astonintensivfinal.headlines.moxyinterface.HeadlinesView
+import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.HeadlinesView
 import com.aston.astonintensivfinal.utils.Utils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
