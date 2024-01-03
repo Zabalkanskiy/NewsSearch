@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.headlines.moxyinterface
+package com.aston.astonintensivfinal.headlines.presentation.moxyinterface
 
 import com.aston.astonintensivfinal.data.Article
 import moxy.MvpView
