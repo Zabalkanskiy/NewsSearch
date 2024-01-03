@@ -114,4 +114,10 @@ dependencies {
 
     val glideVersion = "4.16.0"
     implementation("com.github.bumptech.glide:glide:$glideVersion")
+
+    val lottieVersion = "6.2.0"
+    implementation("com.airbnb.android:lottie:$lottieVersion")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 }
