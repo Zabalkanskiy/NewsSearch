@@ -22,5 +22,5 @@ data class HeadlinesNewsModelData(
 
     val publishedAt: String? = null,
 
-    val content: String? = null
+    val content: String? = null,
 )
