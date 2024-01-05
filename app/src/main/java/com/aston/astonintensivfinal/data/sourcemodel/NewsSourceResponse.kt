@@ -1,0 +1,15 @@
+package com.aston.astonintensivfinal.data.sourcemodel
+
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+class NewsSourceResponse : SourceResponse () {
+    @SerializedName("status")
+    @Expose
+     var status: String? = null
+
+    @SerializedName("sources")
+    @Expose
+     var sources: List<SourceNews?>? = null
+
+}
