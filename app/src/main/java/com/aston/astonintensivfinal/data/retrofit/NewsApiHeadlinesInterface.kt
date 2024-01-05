@@ -2,7 +2,9 @@ package com.aston.astonintensivfinal.data.retrofit
 
 import androidx.lifecycle.LiveData
 import com.aston.astonintensivfinal.data.ApiResponse
+import com.aston.astonintensivfinal.data.sourcemodel.SourceResponse
 import io.reactivex.rxjava3.core.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -28,6 +30,17 @@ interface NewsApiHeadlinesInterface {
     @GET("top-headlines")
     fun getFilterTravellingHeadlines(@Query("apiKey") apiKey: String, @Query("page") page: Int, @Query("pageSize") pageSize: Int = 20, @Query("q") query: String) : LiveData<ApiResponse>
 
+
+    //sources
+
+    @GET("top-headlines/sources")
+    suspend fun getListAllSources(@Query("apiKey") apiKey: String, @Query("page") page: Int, @Query("pageSize") pageSize: Int = 20) : Response<SourceResponse>
+
+    @GET("top-headlines/sources")
+    suspend  fun getListOneSource(@Query("apiKey") apiKey: String, @Query("page") page: Int, @Query("pageSize") pageSize: Int = 20, @Query("description" )description: String) : Response<SourceResponse>
+    //not work now
+    @GET("top-headlines/sources")
+    suspend  fun getFilterSource(@Query("apiKey") apiKey: String, @Query("page") page: Int, @Query("pageSize") pageSize: Int = 20) : SourceResponse
 
 
     //package saved

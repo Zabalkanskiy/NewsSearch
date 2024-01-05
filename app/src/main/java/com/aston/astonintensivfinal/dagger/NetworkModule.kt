@@ -3,6 +3,8 @@ package com.aston.astonintensivfinal.dagger
 import com.aston.astonintensivfinal.data.ApiResponse
 import com.aston.astonintensivfinal.data.ApiResponseDeserializer
 import com.aston.astonintensivfinal.data.retrofit.NewsApiHeadlinesInterface
+import com.aston.astonintensivfinal.data.sourcemodel.SourceResponceDeserializer
+import com.aston.astonintensivfinal.data.sourcemodel.SourceResponse
 import com.aston.astonintensivfinal.utils.Utils
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -26,6 +28,7 @@ class NetworkModule {
             .build()
         val gson = GsonBuilder()
             .registerTypeAdapter(ApiResponse::class.java, ApiResponseDeserializer())
+            .registerTypeAdapter(SourceResponse::class.java, SourceResponceDeserializer())
             .create()
         return Retrofit.Builder()
             .baseUrl(Utils.BASEURL)
