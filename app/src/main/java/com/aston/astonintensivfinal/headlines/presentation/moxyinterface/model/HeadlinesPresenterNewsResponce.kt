@@ -1,0 +1,3 @@
+package com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model
+
+sealed class HeadlinesPresenterNewsResponce
