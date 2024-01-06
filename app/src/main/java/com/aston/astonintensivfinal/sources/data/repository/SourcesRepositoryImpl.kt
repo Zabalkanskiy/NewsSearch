@@ -8,8 +8,9 @@ import com.aston.astonintensivfinal.sources.domain.model.NewsSourceErrorResponse
 import com.aston.astonintensivfinal.sources.domain.model.NewsSourceResponseDomain
 import com.aston.astonintensivfinal.sources.domain.model.SourceNewsDomain
 import com.aston.astonintensivfinal.sources.domain.model.SourceResponseDomain
+import javax.inject.Inject
 
-class SourcesRepositoryImpl : SourcesRepository {
+class SourcesRepositoryImpl @Inject constructor(): SourcesRepository {
     override suspend fun fetchSourcesNews(
         apiKey: String,
         page: Int,
