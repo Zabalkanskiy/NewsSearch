@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/headlines_general_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.MainActivity">
+
+    <View
+        android:id="@+id/source_list_toolbar_view"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/system_prymary_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/news_app"
+        android:textColor="@color/color_text_tab_layout"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/source_list_toolbar_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--  <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/filter" /> -->
+
+    <ImageButton
+        android:id="@+id/source_list_search_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="6dp"
+        android:background="@null"
+        android:contentDescription="@string/search_button"
+        android:scaleType="center"
+
+        android:src="@drawable/baseline_search_24"
+        app:layout_constraintEnd_toStartOf="@+id/source_list_filter_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/source_list_filter_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:background="@null"
+        android:contentDescription="@string/filter_button"
+        android:scaleType="center"
+
+        android:src="@drawable/filter"
+        app:layout_constraintBottom_toBottomOf="@+id/source_list_toolbar_view"
+        app:layout_constraintEnd_toEndOf="@+id/source_list_toolbar_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/headlines_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/surface_recycler"
+        android:contentDescription="@string/tab_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/source_list_toolbar_view"
+        app:tabContentStart="32dp"
+        app:tabIndicator="@drawable/indicator_shape"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="@color/checked_on_icon"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="fixed"
+        app:tabPaddingEnd="16dp"
+        app:tabPaddingStart="16dp"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@drawable/selected_color"
+        app:tabTextAppearance="?attr/textAppearanceSubtitle1"
+        app:tabTextColor="#ffffff" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+
+
+        android:id="@+id/headlines_swipe_to_refresh_layout"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headlines_tab_layout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/headlines_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:clipToPadding="false"
+            android:paddingBottom="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/headlines_list_progress_bar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:indicatorColor="@color/proggress_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/headlines_general_progress_bar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:indeterminate="true"
+        app:indicatorColor="@color/proggress_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headlines_tab_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

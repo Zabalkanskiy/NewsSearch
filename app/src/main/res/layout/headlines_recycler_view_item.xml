@@ -7,7 +7,7 @@
     android:background="#F8F9FB">
 
     <ImageView
-        android:id="@+id/recycler_view_headlines_image_news"
+        android:id="@+id/recycler_view_headlines_image"
         android:layout_width="114dp"
         android:layout_height="64dp"
         android:contentDescription="@string/image_news"
@@ -24,11 +24,11 @@
         android:contentDescription="@string/bage_news"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toEndOf="@+id/recycler_view_headlines_image_news"
+        app:layout_constraintStart_toEndOf="@+id/recycler_view_headlines_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/recycler_view_headlines_text_view_name_news"
+        android:id="@+id/recycler_view_headlines_item_text_view_name_news_agency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/recycler_view_headlines_text_view_description_news"
+        android:id="@+id/recycler_view_headlines_item_text_view_description"
         android:layout_width="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="12dp"
@@ -55,7 +55,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/recycler_view_headlines_image_news"
+        app:layout_constraintStart_toEndOf="@+id/recycler_view_headlines_image"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view_headlines_image_bage" />
 
     <View
@@ -63,7 +63,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="#BFC8CC"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_headlines_image_news"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_headlines_image"
         tools:layout_editor_absoluteX="-12dp" />
 
 
