@@ -23,5 +23,3 @@ interface SourceFactoryModule {
     fun bindViewModelsFactory(viewModelsFactory: SourceListViewModelFactory): ViewModelProvider.Factory
 }
 
-@MapKey
-annotation class ViewModelKey(val value: KClass<out ViewModel>)
