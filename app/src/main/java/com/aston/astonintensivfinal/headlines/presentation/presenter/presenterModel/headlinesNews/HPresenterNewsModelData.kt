@@ -1,6 +1,6 @@
-package com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model
+package com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews
 
-import com.aston.astonintensivfinal.data.Source
+import com.aston.astonintensivfinal.data.headlinesmodel.Source
 
 data class HPresenterNewsModelData(
 
