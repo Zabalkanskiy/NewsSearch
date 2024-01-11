@@ -20,6 +20,9 @@ interface NewsDao {
     @Delete
     fun deleteNews(news: NewsModelEntity)
 
-    @Query("SELECT EXISTS(SELECT COUNT(*) FROM news WHERE title = :title AND urlToImage = :urlToImage)")
+    @Query("DELETE FROM news WHERE urlToImage = :urlToImage AND title = :title AND publishedAt = :publishedAt")
+    fun deleteNewsByUrlImageTitleAndPublishedAt(urlToImage: String, title: String, publishedAt: String)
+
+    @Query("SELECT COUNT(*) > 0 FROM news WHERE title = :title AND urlToImage = :urlToImage")
     fun countNewsByTitleAndUrlImage(title: String, urlToImage: String): Boolean
 }

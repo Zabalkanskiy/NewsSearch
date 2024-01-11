@@ -1,7 +1,7 @@
 package com.aston.astonintensivfinal.data.retrofit
 
 import androidx.lifecycle.LiveData
-import com.aston.astonintensivfinal.data.ApiResponse
+import com.aston.astonintensivfinal.data.headlinesmodel.ApiResponse
 import com.aston.astonintensivfinal.data.sourcemodel.SourceResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
