@@ -4,8 +4,8 @@ import com.aston.astonintensivfinal.AstonIntensivApplication
 import com.aston.astonintensivfinal.data.headlinesmodel.ErrorResponce
 import com.aston.astonintensivfinal.data.headlinesmodel.NewApiResponce
 import com.aston.astonintensivfinal.headlines.domain.GetHeadLinesUseCase
-import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsListArticles
-import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsModelError
+import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain.HeadlinesNewsListArticles
+import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain.HeadlinesNewsModelError
 import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.HeadlinesView
 import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews.HPresenterNewsListArticles
 import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews.HPresenterNewsModelData
