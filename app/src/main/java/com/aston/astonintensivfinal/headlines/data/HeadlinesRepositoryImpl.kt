@@ -1,13 +1,13 @@
 package com.aston.astonintensivfinal.headlines.data
 
 import com.aston.astonintensivfinal.AstonIntensivApplication
-import com.aston.astonintensivfinal.data.ApiResponse
-import com.aston.astonintensivfinal.data.ErrorResponce
-import com.aston.astonintensivfinal.data.NewApiResponce
-import com.aston.astonintensivfinal.headlines.domain.model.HeadlineNewsResponce
-import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsListArticles
-import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsModelData
-import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsModelError
+import com.aston.astonintensivfinal.data.headlinesmodel.ApiResponse
+import com.aston.astonintensivfinal.data.headlinesmodel.ErrorResponce
+import com.aston.astonintensivfinal.data.headlinesmodel.NewApiResponce
+import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain.HeadlineNewsResponce
+import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain.HeadlinesNewsListArticles
+import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain.HeadlinesNewsModelData
+import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain.HeadlinesNewsModelError
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -56,7 +56,7 @@ class HeadlinesRepositoryImpl @Inject constructor(): HeadlinesRepository {
                         headlinesListModelData.add(HeadlinesNewsModelData(it.source, it.author, it.title, it.description, it.url, it.urlToImage, it.publishedAt, it.content))
 
                     }
-                    val headlinesNewsListArticles = HeadlinesNewsListArticles(articles = headlinesListModelData)
+                    val headlinesNewsListArticles = HeadlinesNewsListArticles(totalResults = newsApiResponce.totalResults,articles = headlinesListModelData)
                     headlinesNewsListArticles
 
                 }
