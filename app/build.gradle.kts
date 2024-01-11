@@ -112,6 +112,8 @@ dependencies {
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion")
 
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifeCycleVersion")
+
     val glideVersion = "4.16.0"
     implementation("com.github.bumptech.glide:glide:$glideVersion")
 
@@ -122,5 +124,6 @@ dependencies {
 
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 
 }
