@@ -23,11 +23,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.aston.astonintensivfinal.R
 import com.aston.astonintensivfinal.headlines.dagger.DaggerHeadlinesComponent
-import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.HeadlinesFullNewsView
 import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model.fullNewsPresenter.FullNewsPresenterModel
 import com.aston.astonintensivfinal.headlines.presentation.presenter.FullNewsViewModel
-import com.aston.astonintensivfinal.headlines.presentation.presenter.HeadlinesFullNewsPresenter
-import com.aston.astonintensivfinal.sources.presentation.viewmodel.SourceListViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -42,11 +39,8 @@ const val CONTENT = "CONTENT"
 const val PUBLISHEDAT = "PUBLISHEDAT"
 const val SOURCE = "SOURCE"
 
-class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
-  /*  @Inject
-    lateinit var headlinesFullNewsPresenter: HeadlinesFullNewsPresenter
+class HeadlinesFullNewsFragment : Fragment()  {
 
-   */
 
     lateinit var headlinesFullNewsViewModel: FullNewsViewModel
 
@@ -55,7 +49,6 @@ class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
     lateinit var fullNewsPresenterModel: FullNewsPresenterModel
     lateinit var fullNewsMenuItem: MenuItem
     var newsInDataBase: Boolean = false
-   // lateinit var resourceIcon
 
 
     lateinit var myMenuProvider: MenuProvider
@@ -104,7 +97,6 @@ class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.headlines_full_news, container, false)
-      //  headlinesFullNewsPresenter.attachView(this)
 
 
 
@@ -123,7 +115,6 @@ class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
         (activity as AppCompatActivity).setSupportActionBar(hedlinesFullNewsToolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(true)
-      //  headlinesFullNewsPresenter.checkIfNewsExists(title = titleNews, urlToImage = urlToImage)
         headlinesFullNewsCollapsingToolbar.apply {
             title = titleNews
             setExpandedTitleColor(ContextCompat.getColor(context, R.color.transparent_color))
@@ -158,13 +149,9 @@ class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
                 return when(menuItem.itemId){
                     R.id.menu_full_news_save-> {
                         if (newsInDataBase){
-                           // menuItem.setIcon(R.drawable.bookmark_border_24px)
                             headlinesFullNewsViewModel.deleteNews(fullNewsPresenterModel)
-                          //  headlinesFullNewsPresenter.deleteNews(fullNewsPresenterModel)
                         } else{
-                         //   menuItem.setIcon(R.drawable.bookmark_24px)
                             headlinesFullNewsViewModel.saveNews(fullNewsPresenterModel)
-                          //  headlinesFullNewsPresenter.saveNews(fullNewsPresenterModel)
                         }
 
                         true
@@ -172,6 +159,7 @@ class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
                     else -> false
                 }
             }
+
 
 
         }, viewLifecycleOwner)
@@ -187,34 +175,7 @@ class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
             }
         }
 
-        /*
-         myMenuProvider = object : MenuProvider{
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.full_news_menu, menu)
-            }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when(menuItem.itemId){
-                    R.id.menu_full_news_save-> {
-                        if (newsInDataBase){
-                            menuItem.setIcon(R.drawable.bookmark_border_24px)
-                            headlinesFullNewsViewModel.deleteNews(fullNewsPresenterModel)
-                            //  headlinesFullNewsPresenter.deleteNews(fullNewsPresenterModel)
-                        } else{
-                            menuItem.setIcon(R.drawable.bookmark_24px)
-                            headlinesFullNewsViewModel.saveNews(fullNewsPresenterModel)
-                            //  headlinesFullNewsPresenter.saveNews(fullNewsPresenterModel)
-                        }
-
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-        }
-
-         */
 
 
 
@@ -222,7 +183,6 @@ class HeadlinesFullNewsFragment : Fragment() /*, HeadlinesFullNewsView */ {
 
     fun updateFromFlowIcon(isInDatabase: Boolean){
         newsInDataBase = isInDatabase
-   //     menuHost.addMenuProvider(myMenuProvider, viewLifecycleOwner)
         requireActivity().invalidateOptionsMenu()
 
 
