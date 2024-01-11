@@ -23,7 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.aston.astonintensivfinal.R
 import com.aston.astonintensivfinal.headlines.dagger.DaggerHeadlinesComponent
-import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model.fullNewsPresenter.FullNewsPresenterModel
+import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.fullNewsPresenter.FullNewsPresenterModel
 import com.aston.astonintensivfinal.headlines.presentation.presenter.FullNewsViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

@@ -6,7 +6,7 @@ import com.aston.astonintensivfinal.headlines.domain.fullNewsUseCases.DeleteFull
 import com.aston.astonintensivfinal.headlines.domain.fullNewsUseCases.FindNewsInDatabaseUseCase
 import com.aston.astonintensivfinal.headlines.domain.fullNewsUseCases.SaveFullNewsUseCase
 import com.aston.astonintensivfinal.headlines.domain.model.FullNewsDomain.FullNewsDomainModel
-import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model.fullNewsPresenter.FullNewsPresenterModel
+import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.fullNewsPresenter.FullNewsPresenterModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

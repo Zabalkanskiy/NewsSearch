@@ -7,10 +7,10 @@ import com.aston.astonintensivfinal.headlines.domain.GetHeadLinesUseCase
 import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsListArticles
 import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsModelError
 import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.HeadlinesView
-import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model.HPresenterNewsListArticles
-import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model.HPresenterNewsModelData
-import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model.HPresenterNewsModelError
-import com.aston.astonintensivfinal.headlines.presentation.moxyinterface.model.HeadlinesPresenterNewsResponce
+import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews.HPresenterNewsListArticles
+import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews.HPresenterNewsModelData
+import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews.HPresenterNewsModelError
+import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews.HeadlinesPresenterNewsResponce
 import com.aston.astonintensivfinal.utils.Utils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
