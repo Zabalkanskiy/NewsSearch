@@ -85,6 +85,10 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.lottie_view_fragment_container, HeadlinesGeneralFragment.newInstance(), MAINFRAGMENT)
                             .commit()
+                    } else {
+                        supportFragmentManager.beginTransaction()
+                            .show(headlineesTag)
+                            .commit()
                     }
 
 
@@ -101,6 +105,10 @@ class MainActivity : AppCompatActivity() {
                     if (sourceFragment == null){
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.lottie_view_fragment_container, SourceListFragment.newInstance(), SOURCE)
+                            .commit()
+                    } else {
+                        supportFragmentManager.beginTransaction()
+                            .show(sourceFragment)
                             .commit()
                     }
 
