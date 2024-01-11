@@ -1,7 +1,4 @@
-package com.aston.astonintensivfinal.headlines.domain.model
-
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+package com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain
 
 data class HeadlinesNewsModelError(
 

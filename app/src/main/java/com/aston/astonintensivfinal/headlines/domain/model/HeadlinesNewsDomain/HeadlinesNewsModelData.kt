@@ -1,6 +1,6 @@
-package com.aston.astonintensivfinal.headlines.domain.model
+package com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain
 
-import com.aston.astonintensivfinal.data.Source
+import com.aston.astonintensivfinal.data.headlinesmodel.Source
 
 data class HeadlinesNewsModelData(
     val source: Source? = null,
