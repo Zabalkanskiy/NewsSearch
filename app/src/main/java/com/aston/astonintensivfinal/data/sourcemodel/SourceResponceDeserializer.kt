@@ -1,8 +1,5 @@
 package com.aston.astonintensivfinal.data.sourcemodel
 
-import com.aston.astonintensivfinal.data.ApiResponse
-import com.aston.astonintensivfinal.data.ErrorResponce
-import com.aston.astonintensivfinal.data.NewApiResponce
 import com.google.gson.Gson
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
