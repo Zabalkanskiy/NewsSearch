@@ -1,7 +1,7 @@
 package com.aston.astonintensivfinal.headlines.domain
 
 import com.aston.astonintensivfinal.headlines.data.HeadlinesRepositoryImpl
-import com.aston.astonintensivfinal.headlines.domain.model.HeadlineNewsResponce
+import com.aston.astonintensivfinal.headlines.domain.model.HeadlinesNewsDomain.HeadlineNewsResponce
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
