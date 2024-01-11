@@ -1,8 +1,8 @@
 package com.aston.astonintensivfinal
 
 import android.app.Application
-import com.aston.astonintensivfinal.dagger.DaggerNetworkComponent
-import com.aston.astonintensivfinal.dagger.NetworkComponent
+import com.aston.astonintensivfinal.dagger.DaggerAppComponent
+import com.aston.astonintensivfinal.data.databaseNews.NewsModel.NewsDao
 import com.aston.astonintensivfinal.data.retrofit.NewsApiHeadlinesInterface
 import javax.inject.Inject
 
@@ -12,13 +12,17 @@ class AstonIntensivApplication : Application() {
     @Inject
     lateinit var headlinesApi: NewsApiHeadlinesInterface
 
+    @Inject
+    lateinit var newsDao: NewsDao
+
     override fun onCreate() {
         super.onCreate()
         getAstonApplicationContext = this
      //  appComponent = DaggerNetworkComponent.builder().build()
       //  appComponent.inject(this)
        // appComponent.inject(this)
-        DaggerNetworkComponent.builder()
+        DaggerAppComponent.builder()
+            .applicationContext(this)
             .build()
             .inject(this)
 
