@@ -2,6 +2,7 @@ package com.aston.astonintensivfinal.sources.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.aston.astonintensivfinal.sources.presentation.viewmodel.OneSourceListViewModel
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.SourceListViewModel
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.SourceListViewModelFactory
 import dagger.Binds
@@ -21,5 +22,10 @@ interface SourceFactoryModule {
 
     @Binds
     fun bindViewModelsFactory(viewModelsFactory: SourceListViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OneSourceListViewModel::class)
+    fun bindOneSourceListViewModel(oneSourceListViewModel: OneSourceListViewModel): ViewModel
 }
 
