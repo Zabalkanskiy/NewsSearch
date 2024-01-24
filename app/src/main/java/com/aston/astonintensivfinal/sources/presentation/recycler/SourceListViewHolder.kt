@@ -5,8 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aston.astonintensivfinal.R
-import com.aston.astonintensivfinal.data.headlinesmodel.Article
-import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.SourceNewsVM
+import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.sourseList.SourceNewsVM
 
 class SourceListViewHolder(itemView: View) : ViewHolder(itemView){
 

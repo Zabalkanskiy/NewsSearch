@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.aston.astonintensivfinal.R
-import com.aston.astonintensivfinal.data.headlinesmodel.Article
-import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.SourceNewsVM
+import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.sourseList.SourceNewsVM
 
 class SourceListAdapter(private val onClickAction: (sourceNews: SourceNewsVM, position : Int) -> Unit) : ListAdapter<SourceNewsVM, SourceListViewHolder>(
     SourceDiffUtil

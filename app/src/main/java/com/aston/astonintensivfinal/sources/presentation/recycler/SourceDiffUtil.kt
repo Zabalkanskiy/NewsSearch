@@ -1,8 +1,7 @@
 package com.aston.astonintensivfinal.sources.presentation.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.aston.astonintensivfinal.data.headlinesmodel.Article
-import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.SourceNewsVM
+import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.sourseList.SourceNewsVM
 
 object SourceDiffUtil:  DiffUtil.ItemCallback<SourceNewsVM>() {
     override fun areItemsTheSame(oldItem: SourceNewsVM, newItem: SourceNewsVM): Boolean {
