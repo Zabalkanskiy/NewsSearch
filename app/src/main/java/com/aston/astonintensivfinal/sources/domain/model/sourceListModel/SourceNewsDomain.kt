@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.sources.domain.model
+package com.aston.astonintensivfinal.sources.domain.model.sourceListModel
 
 
 class SourceNewsDomain(
