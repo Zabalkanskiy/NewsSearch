@@ -2,7 +2,6 @@ package com.aston.astonintensivfinal.sources.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aston.astonintensivfinal.sources.domain.GetSourcesUseCase
 import javax.inject.Inject
 import javax.inject.Provider
 

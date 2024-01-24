@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.sources.presentation.viewmodel.model
+package com.aston.astonintensivfinal.sources.presentation.viewmodel.model.sourseList
 
 class NewsSourceErrorResponseVM( val status: String? ,
 

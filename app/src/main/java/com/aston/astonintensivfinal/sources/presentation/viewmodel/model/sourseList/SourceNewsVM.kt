@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.sources.presentation.viewmodel.model
+package com.aston.astonintensivfinal.sources.presentation.viewmodel.model.sourseList
 
 data class SourceNewsVM(
     val id: String?,
