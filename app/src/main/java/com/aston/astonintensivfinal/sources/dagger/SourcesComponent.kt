@@ -8,7 +8,7 @@ import com.aston.astonintensivfinal.sources.presentation.ui.SourceListFragment
 import dagger.Component
 
 @SourcesScope
-@Component(modules = [(SourcesModule::class), (SourceFactoryModule::class), (OneSourceListMOdule::class)],
+@Component(modules = [(SourcesModule::class), (SourceFactoryModule::class), (OneSourceListMOdule::class),/* (SourcesBindsModule::class) */],
     dependencies = [AppComponent::class])
 interface SourcesComponent {
 

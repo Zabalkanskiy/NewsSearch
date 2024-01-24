@@ -9,6 +9,10 @@ import com.aston.astonintensivfinal.sources.data.repository.OneSourceRepositoryI
 import com.aston.astonintensivfinal.sources.data.repository.OneSourcesRepository
 import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.GetNewsSourceUseCase
 import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.GetNewsSourceUseCaseImpl
+import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.LoadNewsSourceFromDBUseCase
+import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.LoadNewsSourceFromDBUseCaseImpl
+import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.SaveNewsSourceInDBUseCase
+import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.SaveNewsSourceInDBUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,6 +23,15 @@ abstract class OneSourceListMOdule {
     @Binds
     abstract fun bindGetNewSourcesUseCase(useCase: GetNewsSourceUseCaseImpl): GetNewsSourceUseCase
 
+
+    @SourcesScope
+    @Binds
+    abstract fun bindsLoadNewsSourceFromDBUseCaseImpl(useCase: LoadNewsSourceFromDBUseCaseImpl): LoadNewsSourceFromDBUseCase
+
+    @SourcesScope
+    @Binds
+    abstract fun bindsSaveNewsSourceInDBUseCaseImpl(useCase: SaveNewsSourceInDBUseCaseImpl): SaveNewsSourceInDBUseCase
+
     @SourcesScope
     @Binds
     abstract fun bindGetOneSourceRepository(oneSourceRepositoryImpl: OneSourceRepositoryImpl): OneSourcesRepository
@@ -26,6 +39,8 @@ abstract class OneSourceListMOdule {
     @SourcesScope
     @Binds
     abstract fun bindHeadlinesFullNewsRepository(repository: HeadlinesFullNewsRepositoryImpl): HeadlinesFullNewsRepository
+
+
 
     /*companion object {
 
