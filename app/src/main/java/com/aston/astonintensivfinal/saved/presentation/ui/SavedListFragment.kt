@@ -206,7 +206,7 @@ class SavedListFragment : Fragment() {
     }
 
     fun handleSearchQuery(query: String){
-        //нужно реализовать запрос
+
         newsAdapter.submitList(null)
         savedListViewModel.searchNewsFromQuery(filterState =  filterState, query = query)
 
