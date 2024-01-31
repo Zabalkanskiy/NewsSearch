@@ -13,4 +13,12 @@
     <color name="surface">#F8F9FB</color>
     <color name="transparent_color">#00FFFFFF</color>
     <color name="proggress_color">#00677C</color>
+    <color name="gray_icon">#40484B</color>
+    <color name="refresh_text">#70787C</color>
+    <color name="range_color">#CEE7F0</color>
+    <color name="select_date">#00677C</color>
+    <color name="range_button">#00677C</color>
+    <color name="range_background">#FFFBFE</color>
+    <color name="range_current_date_color">#00677C</color>
+    <color name="range_select_name">#40484B</color>
 </resources>

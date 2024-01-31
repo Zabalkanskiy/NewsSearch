@@ -6,7 +6,9 @@
         android:icon="@drawable/baseline_search_24"
         android:title="@string/search"
         android:contentDescription="@string/headline_search"
-        app:showAsAction="ifRoom"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        />
 
     <item
         android:id="@+id/top_bar_menu"
