@@ -20,11 +20,11 @@ class AstonIntensivApplication : Application() {
         super.onCreate()
         getAstonApplicationContext = this
 
-       appComponent = DaggerAppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
             .applicationContext(this)
             .build()
 
-           appComponent.inject(this)
+        appComponent.inject(this)
 
     }
 
