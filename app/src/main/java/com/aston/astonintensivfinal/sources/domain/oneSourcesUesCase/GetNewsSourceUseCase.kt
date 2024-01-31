@@ -8,6 +8,10 @@ interface GetNewsSourceUseCase {
         page: Int,
         pageSize: Int,
         source: String,
-        search: String
+        search: String,
+        language: String,
+        sortBy: String,
+        fromDate: String,
+        toDate: String
     ): OneSourceNewsDomain
 }

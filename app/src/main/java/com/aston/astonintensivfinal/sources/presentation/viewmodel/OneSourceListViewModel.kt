@@ -5,25 +5,39 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aston.astonintensivfinal.common.mviState.FilterState
+import com.aston.astonintensivfinal.common.mviState.Language
+import com.aston.astonintensivfinal.common.mviState.Sort
+import com.aston.astonintensivfinal.core.data.retrofit.NEWSAPIKEY
 import com.aston.astonintensivfinal.sources.domain.model.OneSourceNewsModel.OneSourceNewsArticle
 import com.aston.astonintensivfinal.sources.domain.model.OneSourceNewsModel.OneSourceNewsDomain
 import com.aston.astonintensivfinal.sources.domain.model.OneSourceNewsModel.OneSourceNewsError
 import com.aston.astonintensivfinal.sources.domain.model.OneSourceNewsModel.OneSourceNewsListArticles
+import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.FindNewsFromDBUseCase
 import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.GetNewsSourceUseCase
+import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.LoadNewsByDateFromDBUseCase
 import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.LoadNewsSourceFromDBUseCase
 import com.aston.astonintensivfinal.sources.domain.oneSourcesUesCase.SaveNewsSourceInDBUseCase
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.oneSourseList.OneSourceNewsArticleVM
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.oneSourseList.OneSourceNewsErrorVM
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.oneSourseList.OneSourceNewsLIstArticlesVM
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.oneSourseList.OneSourceNewsVM
-import com.aston.astonintensivfinal.utils.Utils
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
-class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNewsSourceUseCase, val loadNewsSourceFromDBUseCase: LoadNewsSourceFromDBUseCase, val saveNewsSourceInDBUseCase: SaveNewsSourceInDBUseCase) :
+class OneSourceListViewModel @Inject constructor(
+    val getNewsSourceUseCase: GetNewsSourceUseCase,
+    val loadNewsSourceFromDBUseCase: LoadNewsSourceFromDBUseCase,
+    val saveNewsSourceInDBUseCase: SaveNewsSourceInDBUseCase,
+    val loadNewsByDateFromDBUseCase: LoadNewsByDateFromDBUseCase,
+    val findNewsFromDBUseCase: FindNewsFromDBUseCase
+) :
     ViewModel() {
     private val _mutableNews: MutableLiveData<OneSourceNewsLIstArticlesVM> = MutableLiveData()
     private val _mutableNetworkError: MutableLiveData<OneSourceNewsErrorVM> = MutableLiveData()
@@ -64,7 +78,7 @@ class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNe
         }
     }
 
-    val coroutineDBExeptionHandler = CoroutineExceptionHandler {_, _ ->
+    val coroutineDBExeptionHandler = CoroutineExceptionHandler { _, _ ->
         _mutableInternalError.postValue(
             OneSourceNewsErrorVM(
                 status = "error",
@@ -79,7 +93,11 @@ class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNe
         page: Int,
         pageSize: Int,
         source: String,
-        search: String
+        search: String,
+        language: String,
+        sortBy: String,
+        fromDate: String,
+        toDate: String
     ) {
 
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
@@ -89,7 +107,11 @@ class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNe
                 page,
                 pageSize,
                 source,
-                search = search
+                search = search,
+                language = language,
+                sortBy = sortBy,
+                fromDate = fromDate,
+                toDate = toDate
             ).let {
                 mapDomainToOneSourceNewVM(it)
             }
@@ -110,9 +132,8 @@ class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNe
                     )
 
                     mapNewsVMtoNewsDomain(oneSourceNewsVM.articles).let {
-                        saveNewsSourceInDBUseCase.saveNewsInDB(it)
+                        saveNewsSourceInDBUseCase.saveNewsInDB(it, language = language)
                     }
-
 
 
                 }
@@ -146,7 +167,9 @@ class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNe
                             description = it.description,
                             url = it.url,
                             urlToImage = it.urlToImage,
-                            publishedAt = it.publishedAt,
+                            //convertDate
+                            publishedAt = convertDateFormat(it.publishedAt),
+                            // publishedAt = it.publishedAt,
                             content = it.content,
                             idSource = it.idSource
                         )
@@ -178,18 +201,70 @@ class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNe
 
     }
 
-    fun loadNextData(source: String, searchString: String = "", isNetwork: Boolean) {
+    fun loadNextData(
+        source: String,
+        searchString: String = "",
+        isNetwork: Boolean,
+        language: Language,
+        fromDate: String,
+        toDate: String,
+        sortBy: Sort
+    ) {
+        val lang = convertLanguage(language)
+        val sort = converSortToString(sortBy)
+        var startDate: Date? = null
+        var endDate: Date? = null
+        if (fromDate.isNotBlank()) {
+             startDate = stringToDate(fromDate)
+             endDate = stringToDate(toDate)
+        }
         if (isNetwork) {
             loadNewsFromOneSources(
-                apiKey = Utils.NEWSAPIKEY,
+                apiKey = NEWSAPIKEY,
                 page = pageCount,
                 pageSize = 20,
                 source = source,
-                search = searchString
+                search = searchString,
+                language = lang,
+                sortBy = sort,
+                fromDate = fromDate,
+                toDate = toDate
             )
+        } else if (searchString.isBlank() && fromDate.isBlank()) {
+            viewModelScope.launch(Dispatchers.IO + coroutineDBExeptionHandler) {
+                val list: OneSourceNewsLIstArticlesVM =
+                    loadNewsSourceFromDBUseCase.loadNewsFromDB(sourceId = source, language = lang)
+                        .let {
+                            mapOneSourceListArticlesToVM(oneSourceNewsListArticles = it)
+                        }
+                _mutableNews.postValue(list)
+
+            }
+        } else if (searchString.isBlank() && fromDate.isNotBlank()) {
+            viewModelScope.launch(Dispatchers.IO + coroutineDBExeptionHandler) {
+                val list: OneSourceNewsLIstArticlesVM =
+                    loadNewsByDateFromDBUseCase.loadNewsByDateFromDB(
+                        sourceId = source,
+                        language = lang,
+                        startDate = startDate as Date,
+                        endDate = endDate as Date
+                    ).let {
+                        mapOneSourceListArticlesToVM(oneSourceNewsListArticles = it)
+                    }
+                _mutableNews.postValue(list)
+            }
+
+
         } else {
             viewModelScope.launch(Dispatchers.IO + coroutineDBExeptionHandler) {
-                loadNewsSourceFromDBUseCase.loadNewsFromDB(sourceId = source)
+                val list: OneSourceNewsLIstArticlesVM = findNewsFromDBUseCase.findNewsFromDataBase(
+                    sourceId = source,
+                    language = lang,
+                    query = searchString
+                ).let {
+                    mapOneSourceListArticlesToVM(oneSourceNewsListArticles = it)
+                }
+                _mutableNews.postValue(list)
             }
         }
         pageCount += 1
@@ -202,12 +277,104 @@ class OneSourceListViewModel @Inject constructor(val getNewsSourceUseCase: GetNe
 
     }
 
-    fun searchOnString(source: String, searchString: String, isNetwork: Boolean) {
+    fun searchOnString(
+        source: String,
+        searchString: String,
+        isNetwork: Boolean,
+        language: Language,
+        fromDate: String,
+        toDate: String,
+        sortBy: Sort
+    ) {
         clearData()
-        loadNextData(source = source, searchString = searchString, isNetwork = isNetwork)
+        loadNextData(
+            source = source,
+            searchString = searchString,
+            isNetwork = isNetwork,
+            language = language,
+            fromDate = fromDate,
+            toDate = toDate,
+            sortBy = sortBy
+        )
+    }
+
+    fun convertDateFormat(input: String?): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+        val outputFormat = SimpleDateFormat("MMM dd, yyyy | hh:mm a", Locale.US)
+        val date = inputFormat.parse(input)
+        return outputFormat.format(date)
+    }
+
+    fun convertLanguage(language: Language): String {
+        return when (language) {
+            Language.English -> "en"
+            Language.Russian -> "ru"
+            Language.Deutsch -> "de"
+        }
+    }
+
+    fun converSortToString(sort: Sort): String {
+        return when (sort) {
+            Sort.New -> "publishedAt"
+            Sort.Popular -> "popularity"
+            Sort.Relevant -> "relevancy"
+        }
+    }
+
+    fun hasBage(filterState: FilterState): Boolean {
+        if (filterState.language == Language.English && filterState.date == null && filterState.sort == Sort.New) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    fun clearMediator() {
+        getListNews.postValue(OneSourceNewsLIstArticlesVM(totalResults = 0, articles = emptyList()))
+    }
+
+    fun stringToDate(dateString: String): Date {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return format.parse(dateString)!!
     }
 
     fun mapNewsVMtoNewsDomain(listNews: List<OneSourceNewsArticleVM>): List<OneSourceNewsArticle> {
-        return listNews.map { OneSourceNewsArticle(source = it.source, author = it.author, title = it.title, description = it.description, url = it.url, urlToImage = it.urlToImage, publishedAt = it.publishedAt, content = it.content, idSource = it.idSource) }
+        return listNews.map {
+            OneSourceNewsArticle(
+                source = it.source,
+                author = it.author,
+                title = it.title,
+                description = it.description,
+                url = it.url,
+                urlToImage = it.urlToImage,
+                publishedAt = it.publishedAt,
+                content = it.content,
+                idSource = it.idSource
+            )
+        }
+    }
+
+    fun mapOneSourceListArticlesToVM(oneSourceNewsListArticles: OneSourceNewsListArticles): OneSourceNewsLIstArticlesVM {
+        return OneSourceNewsLIstArticlesVM(
+            totalResults = oneSourceNewsListArticles.totalResults,
+            articles = mapListArticlesToVM(oneSourceNewsListArticles.articles)
+        )
+    }
+
+    fun mapListArticlesToVM(listNews: List<OneSourceNewsArticle>): List<OneSourceNewsArticleVM> {
+        return listNews.map {
+            OneSourceNewsArticleVM(
+                source = it.source,
+                author = it.author,
+                title = it.title,
+                description = it.description,
+                url = it.url,
+                urlToImage = it.urlToImage,
+                publishedAt = it.publishedAt,
+                content = it.content,
+                idSource = it.idSource
+            )
+        }
+
     }
 }

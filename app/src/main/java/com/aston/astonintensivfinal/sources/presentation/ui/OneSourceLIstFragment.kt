@@ -18,8 +18,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aston.astonintensivfinal.AstonIntensivApplication
 import com.aston.astonintensivfinal.R
+import com.aston.astonintensivfinal.common.mviState.DateRange
+import com.aston.astonintensivfinal.common.mviState.FilterState
+import com.aston.astonintensivfinal.common.mviState.Language
+import com.aston.astonintensivfinal.common.mviState.Sort
+import com.aston.astonintensivfinal.common.presentation.ui.FilterFragment
 import com.aston.astonintensivfinal.core.hasNetwork
-import com.aston.astonintensivfinal.core.networkConnection
 import com.aston.astonintensivfinal.core.recycler.NewsAdapter
 import com.aston.astonintensivfinal.core.recycler.PaginationScrollListener
 import com.aston.astonintensivfinal.core.recycler.modelRecycler.NewsInterface
@@ -29,11 +33,14 @@ import com.aston.astonintensivfinal.headlines.presentation.ui.FULL_NEWS_FRAGMENT
 import com.aston.astonintensivfinal.headlines.presentation.ui.HeadlinesFullNewsFragment
 import com.aston.astonintensivfinal.headlines.presentation.ui.INTERNAL_ERROR_FRAGMENT
 import com.aston.astonintensivfinal.headlines.presentation.ui.NETWORK_ERROR_FRAGMENT
-import com.aston.astonintensivfinal.presentation.InternalErrorFragment
-import com.aston.astonintensivfinal.presentation.MainActivity
-import com.aston.astonintensivfinal.presentation.NoInternetConnectionFragment
+import com.aston.astonintensivfinal.common.presentation.ui.InternalErrorFragment
+import com.aston.astonintensivfinal.common.presentation.ui.NoInternetConnectionFragment
+import com.aston.astonintensivfinal.common.presentation.viewModel.MainViewModel
+import com.aston.astonintensivfinal.headlines.presentation.ui.FILTER_FRAGMENT
 import com.aston.astonintensivfinal.sources.dagger.DaggerSourcesComponent
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.OneSourceListViewModel
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -67,6 +74,15 @@ class OneSourceLIstFragment : Fragment() {
     @Inject
     lateinit var modelFactory: ViewModelProvider.Factory
 
+    lateinit var mainViewModel: MainViewModel
+
+
+
+    lateinit var languageFromFilter: Language
+    lateinit var sortFromFilter: Sort
+    var dateFromFilter: DateRange? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerSourcesComponent.factory()
@@ -90,7 +106,7 @@ class OneSourceLIstFragment : Fragment() {
                             source = article.source ?: "",
                             description = article.description ?: "",
                             url = article.url ?: "",
-                            idSource = article.idSource ?:""
+                            idSource = article.idSource ?: ""
 
                         )
                     )
@@ -112,16 +128,32 @@ class OneSourceLIstFragment : Fragment() {
         return view
     }
 
+    @androidx.annotation.OptIn(com.google.android.material.badge.ExperimentalBadgeUtils::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mainViewModel = ViewModelProvider(requireActivity(), modelFactory).get(MainViewModel::class.java)
+        languageFromFilter = mainViewModel.getStateShared.value?.language as Language
+        sortFromFilter = mainViewModel.getStateShared.value?.sort as Sort
+        dateFromFilter = mainViewModel.getStateShared.value?.date
+
+        newsAdapter.submitList(null)
+        oneSourceListViewModel.clearData()
+        oneSourceListViewModel.clearMediator()
 
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(requireContext())
 
         val isHasNetwork = hasNetwork(requireContext())
 
-        oneSourceListViewModel.loadNextData(idSource, isNetwork = isHasNetwork)
+        oneSourceListViewModel.loadNextData(idSource, isNetwork = isHasNetwork,  language = languageFromFilter,
+            fromDate = dateFromFilter?.start ?: "",
+            toDate = dateFromFilter?.end ?: "",
+            sortBy = sortFromFilter,)
 
         (activity as AppCompatActivity).setSupportActionBar(binding.oneSourceListToolbar)
+
+        val needBage:Boolean = oneSourceListViewModel.hasBage(filterState = mainViewModel.getStateShared.value as FilterState)
+
 
         binding.oneSourceListToolbar.title = nameSource
         binding.oneSourceListToolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
@@ -129,18 +161,81 @@ class OneSourceLIstFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-       /* binding.oneSourceListToolbar.setOnMenuItemClickListener {
-            when(it.itemId) {
-                R.id.top_bar_search -> {
-
+        binding.oneSourceListToolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.top_bar_menu -> {
+                    parentFragmentManager.beginTransaction()
+                        //need add news data to fragment
+                        .replace(
+                            R.id.lottie_view_fragment_container,
+                            FilterFragment.newInstance(),
+                            FILTER_FRAGMENT
+                        )
+                        .addToBackStack(FILTER_FRAGMENT)
+                        .commit()
 
                     true
                 }
+
                 else -> false
             }
         }
 
-        */
+//        val searchItem = binding.oneSourceListToolbar.menu.findItem(R.id.top_bar_search)
+//        val searchView: SearchView = searchItem.actionView as SearchView
+
+      //  val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+
+        // Устанавливаем цвет текста
+      //  editText.setTextColor(Color.WHITE)
+
+        // Устанавливаем цвет курсора
+     //   val cursorDrawable = GradientDrawable()
+     //   cursorDrawable.setColor(Color.WHITE)
+      //  editText.setTextCursorDrawable(cursorDrawable)
+
+//        searchItem.setOnMenuItemClickListener {
+//            // Perform search when menu item is clicked
+//            searchView.requestFocus()
+//            true
+//        }
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            private var searchQuery = ""
+//
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                // Обрабатываем отправку поискового запроса
+//                // Возвращаем true, чтобы указать, что мы обработали событие
+//                searchView.clearFocus()
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                // Обрабатываем изменение текста поискового запроса
+//                searchQuery = newText
+//                uiScope.launch {
+//                    flow {
+//                        emit(searchQuery)
+//                    }
+//                        .debounce(300) // Устанавливаем задержку
+//                        .collect { query ->
+//                            // Обрабатываем поисковый запрос после задержки
+//                            // Этот блок кода будет выполнен только после того, как пройдет 300 мс без изменения поискового запроса пользователем
+//                            handleSearchQuery(query)
+//                        }
+//                }
+//                // Возвращаем false, чтобы SearchView выполнил действие по умолчанию
+//                return false
+//            }
+//        })
+
+        if (needBage){
+            val badgeDrawable = BadgeDrawable.create(requireContext()) // Create a new BadgeDrawable
+            badgeDrawable.backgroundColor = Color.RED
+            BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.oneSourceListToolbar, R.id.top_bar_menu)
+
+        }
+
 
         menuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -149,9 +244,13 @@ class OneSourceLIstFragment : Fragment() {
                 val searchItem = menu.findItem(R.id.top_bar_search)
                 val searchView = searchItem.actionView as SearchView
 
-                val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+                val editText =
+                    searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
                 editText.setTextColor(Color.WHITE)  // Устанавливаем цвет текста
                 editText.setHintTextColor(Color.WHITE)  // Устанавливаем цвет текста подсказки
+
+
+
 
                 searchItem.setOnMenuItemClickListener {
                     // Perform search when menu item is clicked
@@ -210,7 +309,10 @@ class OneSourceLIstFragment : Fragment() {
                 binding.oneSourceListRecyclerProgressBar.visibility = View.VISIBLE
                 isLoading = true
                 val isOnline = hasNetwork(requireContext())
-                oneSourceListViewModel.loadNextData(source = idSource, isNetwork = isOnline)
+                oneSourceListViewModel.loadNextData(source = idSource, isNetwork = isOnline,  language = languageFromFilter,
+                    fromDate = dateFromFilter?.start ?: "",
+                    toDate = dateFromFilter?.end ?: "",
+                    sortBy = sortFromFilter,)
 
 
             }
@@ -229,10 +331,15 @@ class OneSourceLIstFragment : Fragment() {
             oneSourceListViewModel.clearData()
             newsAdapter.submitList(null)
             val isOnline = hasNetwork(requireContext())
-            oneSourceListViewModel.loadNextData(source = idSource, isNetwork = isOnline)
+            oneSourceListViewModel.loadNextData(source = idSource, isNetwork = isOnline,  language = languageFromFilter,
+                fromDate = dateFromFilter?.start ?: "",
+                toDate = dateFromFilter?.end ?: "",
+                sortBy = sortFromFilter,)
             isLastPage = false
 
         }
+
+        binding.oneSourceListSwipeToRefreshLayout.setColorSchemeResources(R.color.system_prymary_color)
 
 
 
@@ -265,7 +372,7 @@ class OneSourceLIstFragment : Fragment() {
                 .commit()
         }
 
-        oneSourceListViewModel.getInterlalNewsError.observe(viewLifecycleOwner){
+        oneSourceListViewModel.getInterlalNewsError.observe(viewLifecycleOwner) {
             parentFragmentManager.beginTransaction()
                 .replace(
                     R.id.lottie_view_fragment_container,
@@ -278,11 +385,20 @@ class OneSourceLIstFragment : Fragment() {
 
 
     }
+
     private fun handleSearchQuery(query: String) {
         // Обрабатываем поисковый запрос здесь
         newsAdapter.submitList(null)
         val isOnline = hasNetwork(requireContext())
-        oneSourceListViewModel.searchOnString(source = idSource, searchString = query, isNetwork = isOnline)
+        oneSourceListViewModel.searchOnString(
+            source = idSource,
+            searchString = query,
+            isNetwork = isOnline,
+            language = languageFromFilter,
+            fromDate = dateFromFilter?.start ?: "",
+            toDate = dateFromFilter?.end ?: "",
+            sortBy = sortFromFilter,
+        )
         isLastPage = false
 
     }

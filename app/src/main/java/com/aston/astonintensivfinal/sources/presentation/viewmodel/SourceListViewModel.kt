@@ -4,15 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aston.astonintensivfinal.common.mviState.FilterState
+import com.aston.astonintensivfinal.common.mviState.Language
+import com.aston.astonintensivfinal.common.mviState.Sort
 import com.aston.astonintensivfinal.sources.domain.sourceListUseCase.GetSourcesUseCase
 import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.NewsSourceErrorResponseDomain
 import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.NewsSourceResponseDomain
 import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.SourceNewsDomain
 import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.SourceResponseDomain
 import com.aston.astonintensivfinal.sources.domain.sourceListUseCase.FindSourcesFromDataBaseUseCaseImpl
-import com.aston.astonintensivfinal.sources.domain.sourceListUseCase.LoadSourcesFromDataBaseUseCase
 import com.aston.astonintensivfinal.sources.domain.sourceListUseCase.LoadSourcesFromDataBaseUseCaseImpl
-import com.aston.astonintensivfinal.sources.domain.sourceListUseCase.SaveInDataBaseSourcesUseCase
 import com.aston.astonintensivfinal.sources.domain.sourceListUseCase.SaveInDataBaseSourcesUseCaseImpl
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.sourseList.NewsSourceErrorResponseVM
 import com.aston.astonintensivfinal.sources.presentation.viewmodel.model.sourseList.NewsSourceResponceVM
@@ -47,15 +48,18 @@ class SourceListViewModel @Inject constructor(
         page: Int,
         pageSize: Int,
         isOnline: Boolean,
-        query: String = ""
+        query: String = "",
+        filterState: FilterState
+
     ) {
+        val lang = convertLanguage(filterState.language)
         if (isOnline) {
             viewModelScope.launch(Dispatchers.IO) {
                 try {
 
 
                     val sourceResponce: SourceResponseVM =
-                        mapSourceResponce(apiKey = apiKey, page = page, pageSize = pageSize)
+                        mapSourceResponce(apiKey = apiKey, page = page, pageSize = pageSize, language = lang)
                     when (sourceResponce) {
                         is NewsSourceResponceVM -> {
 
@@ -101,7 +105,7 @@ class SourceListViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 try {
                     val listSourceNewsVM: List<SourceNewsVM> =
-                        loadSourcesFromDataBaseUseCase.loadSourcesFromDB().let {
+                        loadSourcesFromDataBaseUseCase.loadSourcesFromDB(language = lang).let {
                             mapFromSourceNewsDomain(it)
 
                         }
@@ -163,10 +167,11 @@ class SourceListViewModel @Inject constructor(
         apiKey: String,
         page: Int,
         pageSize: Int,
+        language: String
     ): SourceResponseVM {
 
         val sourceResponseDomain: SourceResponseDomain =
-            sourcesUseCase.getSources(apiKey = apiKey, page = page, pageSize = pageSize)
+            sourcesUseCase.getSources(apiKey = apiKey, page = page, pageSize = pageSize, language = language)
         when (sourceResponseDomain) {
             is NewsSourceResponseDomain -> {
                 val listSourceNewsVM: MutableList<SourceNewsVM> = mutableListOf()
@@ -218,6 +223,26 @@ class SourceListViewModel @Inject constructor(
             )
         }
 
+    }
+
+    fun convertLanguage(language: Language): String {
+        return when (language) {
+            Language.English -> "en"
+            Language.Russian -> "ru"
+            Language.Deutsch -> "de"
+        }
+    }
+
+    fun hasBage(filterState: FilterState): Boolean {
+        if (filterState.language == Language.English && filterState.date == null && filterState.sort == Sort.New) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    fun clearData(){
+        listSourceNews.postValue(emptyList())
     }
 
 

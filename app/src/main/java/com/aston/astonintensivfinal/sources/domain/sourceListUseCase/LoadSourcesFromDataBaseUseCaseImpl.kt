@@ -5,8 +5,8 @@ import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.SourceN
 import javax.inject.Inject
 
 class LoadSourcesFromDataBaseUseCaseImpl @Inject constructor(private val sourcesRepository: SourcesRepository) : LoadSourcesFromDataBaseUseCase {
-    override suspend fun loadSourcesFromDB(): List<SourceNewsDomain> {
-     return  sourcesRepository.loadFromSourcesInDataBase().let{
+    override suspend fun loadSourcesFromDB(language: String): List<SourceNewsDomain> {
+     return  sourcesRepository.loadFromSourcesInDataBase(language = language).let{
            sourcesRepository.mapToListSourceNewsDomain(it)
        }
     }

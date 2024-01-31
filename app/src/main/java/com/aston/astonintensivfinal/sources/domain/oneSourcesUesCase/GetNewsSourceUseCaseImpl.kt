@@ -11,14 +11,22 @@ class GetNewsSourceUseCaseImpl @Inject constructor(private val oneSourcesReposit
         page: Int,
         pageSize: Int,
         source: String,
-        search: String
+        search: String,
+        language: String,
+        sortBy: String,
+        fromDate: String,
+        toDate: String
     ): OneSourceNewsDomain {
         return oneSourcesRepository.fetchOneSourceNews(
             apiKey = apiKey,
             page = page,
             pageSize = pageSize,
             source = source,
-            search = search
+            search = search,
+            language = language,
+            sortBy = sortBy,
+            fromDate = fromDate,
+            toDate = toDate
         ).let {
             oneSourcesRepository.mapOneSourceNewsInDomain(it)
         }

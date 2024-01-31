@@ -8,12 +8,14 @@ class GetSourcesUseCase @Inject  constructor(private val sourcesRepository: Sour
   suspend  fun getSources(
         apiKey: String,
         page: Int,
-        pageSize: Int
+        pageSize: Int,
+        language:String
     ): SourceResponseDomain {
         return sourcesRepository.mapSourcesNews(
             apiKey,
             page,
-            pageSize
+            pageSize,
+            language = language
         )
     }
 }

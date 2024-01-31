@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.data.sourcemodel
+package com.aston.astonintensivfinal.core.data.sourcemodel
 
 import com.google.gson.Gson
 import com.google.gson.JsonDeserializationContext

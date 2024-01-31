@@ -6,8 +6,11 @@ import com.aston.astonintensivfinal.sources.domain.model.OneSourceNewsModel.OneS
 import javax.inject.Inject
 
 class LoadNewsSourceFromDBUseCaseImpl @Inject constructor(private val oneSourcesRepository: OneSourcesRepository) : LoadNewsSourceFromDBUseCase {
-    override suspend fun loadNewsFromDB(sourceId : String): OneSourceNewsListArticles {
-      val list: List<OneSourceNewsArticle> =  oneSourcesRepository.loadNewsFromDataBase(sourceId = sourceId).let {
+    override suspend fun loadNewsFromDB(
+        sourceId: String,
+        language: String
+    ): OneSourceNewsListArticles {
+      val list: List<OneSourceNewsArticle> =  oneSourcesRepository.loadNewsFromDataBase(sourceId = sourceId, language = language).let {
             oneSourcesRepository.mapFromOneSourceToDomain(it)
         }
         return OneSourceNewsListArticles(totalResults = list.size, articles = list)

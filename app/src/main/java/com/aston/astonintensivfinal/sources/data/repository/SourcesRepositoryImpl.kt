@@ -1,10 +1,10 @@
 package com.aston.astonintensivfinal.sources.data.repository
 
 import com.aston.astonintensivfinal.AstonIntensivApplication
-import com.aston.astonintensivfinal.data.databaseNews.NewsModel.SourceNewsModelEntity
-import com.aston.astonintensivfinal.data.sourcemodel.NewsSourceErrorResponse
-import com.aston.astonintensivfinal.data.sourcemodel.NewsSourceResponse
-import com.aston.astonintensivfinal.data.sourcemodel.SourceResponse
+import com.aston.astonintensivfinal.core.data.databaseNews.NewsModel.SourceNewsModelEntity
+import com.aston.astonintensivfinal.core.data.sourcemodel.NewsSourceErrorResponse
+import com.aston.astonintensivfinal.core.data.sourcemodel.NewsSourceResponse
+import com.aston.astonintensivfinal.core.data.sourcemodel.SourceResponse
 import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.NewsSourceErrorResponseDomain
 import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.NewsSourceResponseDomain
 import com.aston.astonintensivfinal.sources.domain.model.sourceListModel.SourceNewsDomain
@@ -15,13 +15,15 @@ class SourcesRepositoryImpl @Inject constructor() : SourcesRepository {
     override suspend fun fetchSourcesNews(
         apiKey: String,
         page: Int,
-        pageSize: Int
+        pageSize: Int,
+        language:String
     ): SourceResponse {
 
         return AstonIntensivApplication.getAstonApplicationContext.headlinesApi.getFilterSource(
             apiKey = apiKey,
             page = page,
-            pageSize = pageSize
+            pageSize = pageSize,
+            language = language
         )
 
 
@@ -30,9 +32,10 @@ class SourcesRepositoryImpl @Inject constructor() : SourcesRepository {
     override suspend fun mapSourcesNews(
         apiKey: String,
         page: Int,
-        pageSize: Int
+        pageSize: Int,
+        language: String
     ): SourceResponseDomain {
-        val sourceResponse = fetchSourcesNews(apiKey = apiKey, page = page, pageSize = pageSize)
+        val sourceResponse = fetchSourcesNews(apiKey = apiKey, page = page, pageSize = pageSize, language = language)
         when (sourceResponse) {
             is NewsSourceResponse -> {
                 var listSourceNewsDomain: MutableList<SourceNewsDomain> = mutableListOf()
@@ -69,8 +72,8 @@ class SourcesRepositoryImpl @Inject constructor() : SourcesRepository {
         )
     }
 
-    override suspend fun loadFromSourcesInDataBase(): List<SourceNewsModelEntity> {
-        return AstonIntensivApplication.getAstonApplicationContext.newsDao.getAllSourceNews()
+    override suspend fun loadFromSourcesInDataBase(language: String): List<SourceNewsModelEntity> {
+        return AstonIntensivApplication.getAstonApplicationContext.newsDao.getAllSourceNews(language = language)
     }
 
     override suspend fun findSourcesFromDataBase(query: String): List<SourceNewsModelEntity> {

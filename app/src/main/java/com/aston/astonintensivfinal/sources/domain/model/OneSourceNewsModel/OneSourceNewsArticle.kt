@@ -1,6 +1,6 @@
 package com.aston.astonintensivfinal.sources.domain.model.OneSourceNewsModel
 
-import com.aston.astonintensivfinal.data.headlinesmodel.Source
+import com.aston.astonintensivfinal.core.data.headlinesmodel.Source
 
 class OneSourceNewsArticle(
     val source: String,

@@ -1,7 +1,7 @@
 package com.aston.astonintensivfinal.sources.presentation.viewmodel.model.oneSourseList
 
 import com.aston.astonintensivfinal.core.recycler.modelRecycler.NewsInterface
-import com.aston.astonintensivfinal.data.headlinesmodel.Source
+import com.aston.astonintensivfinal.core.data.headlinesmodel.Source
 
 class OneSourceNewsArticleVM(
     override val source: String,
