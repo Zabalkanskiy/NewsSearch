@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.data.headlinesmodel
+package com.aston.astonintensivfinal.core.data.headlinesmodel
 
 import com.google.gson.Gson
 import com.google.gson.JsonDeserializationContext

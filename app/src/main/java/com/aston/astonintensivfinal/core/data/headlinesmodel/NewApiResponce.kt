@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.data.headlinesmodel
+package com.aston.astonintensivfinal.core.data.headlinesmodel
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
