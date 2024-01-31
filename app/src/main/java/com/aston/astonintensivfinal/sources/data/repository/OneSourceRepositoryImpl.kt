@@ -32,13 +32,7 @@ class OneSourceRepositoryImpl @Inject constructor(private val newsApiHeadlinesIn
         fromDate: String,
         toDate: String
     ): ApiResponse {
-      /*  return newsApiHeadlinesInterface.getNewsFromOneSource(
-            apiKey = apiKey,
-            page = page,
-            pageSize = pageSize,
-            sources = source,
-            search = search
-        )*/
+
         return newsApiHeadlinesInterface.getNewsWithParametr(
             apiKey = apiKey,
             page = page,
@@ -139,7 +133,7 @@ class OneSourceRepositoryImpl @Inject constructor(private val newsApiHeadlinesIn
 
     override suspend fun mapInNewsModelFromDomain(listOneSourceNewsArticle: List<OneSourceNewsArticle>): List<NewsModelEntity> {
         fun fromTimestamp(value: String): Date {
-          //  return value.let { SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).parse(it) } as Date
+
             return value.let{  SimpleDateFormat("MMM dd, yyyy | hh:mm a", Locale.US).parse(it) } as Date
         }
         return listOneSourceNewsArticle.map { NewsModelEntity(urlToImage = it.urlToImage, title = it.title, content = it.content, publishedAt = fromTimestamp(it.publishedAt), sourceName = it.source, description = it.description, url = it.url, sourceId = it.idSource)  }

@@ -57,10 +57,10 @@ class OneSourceLIstFragment : Fragment() {
     private var _binding: OneSourceListLayoutBinding? = null
     private val binding get() = _binding!!
 
-    //paginating recycler
+
     var isLastPage: Boolean = false
     var isLoading: Boolean = false
-    //end paginating
+
 
     private val searchJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + searchJob)
@@ -165,7 +165,7 @@ class OneSourceLIstFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.top_bar_menu -> {
                     parentFragmentManager.beginTransaction()
-                        //need add news data to fragment
+
                         .replace(
                             R.id.lottie_view_fragment_container,
                             FilterFragment.newInstance(),
@@ -181,53 +181,6 @@ class OneSourceLIstFragment : Fragment() {
             }
         }
 
-//        val searchItem = binding.oneSourceListToolbar.menu.findItem(R.id.top_bar_search)
-//        val searchView: SearchView = searchItem.actionView as SearchView
-
-      //  val editText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-
-        // Устанавливаем цвет текста
-      //  editText.setTextColor(Color.WHITE)
-
-        // Устанавливаем цвет курсора
-     //   val cursorDrawable = GradientDrawable()
-     //   cursorDrawable.setColor(Color.WHITE)
-      //  editText.setTextCursorDrawable(cursorDrawable)
-
-//        searchItem.setOnMenuItemClickListener {
-//            // Perform search when menu item is clicked
-//            searchView.requestFocus()
-//            true
-//        }
-//
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            private var searchQuery = ""
-//
-//            override fun onQueryTextSubmit(query: String): Boolean {
-//                // Обрабатываем отправку поискового запроса
-//                // Возвращаем true, чтобы указать, что мы обработали событие
-//                searchView.clearFocus()
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String): Boolean {
-//                // Обрабатываем изменение текста поискового запроса
-//                searchQuery = newText
-//                uiScope.launch {
-//                    flow {
-//                        emit(searchQuery)
-//                    }
-//                        .debounce(300) // Устанавливаем задержку
-//                        .collect { query ->
-//                            // Обрабатываем поисковый запрос после задержки
-//                            // Этот блок кода будет выполнен только после того, как пройдет 300 мс без изменения поискового запроса пользователем
-//                            handleSearchQuery(query)
-//                        }
-//                }
-//                // Возвращаем false, чтобы SearchView выполнил действие по умолчанию
-//                return false
-//            }
-//        })
 
         if (needBage){
             val badgeDrawable = BadgeDrawable.create(requireContext()) // Create a new BadgeDrawable
@@ -253,7 +206,6 @@ class OneSourceLIstFragment : Fragment() {
 
 
                 searchItem.setOnMenuItemClickListener {
-                    // Perform search when menu item is clicked
                     searchView.requestFocus()
                     true
                 }
@@ -262,14 +214,12 @@ class OneSourceLIstFragment : Fragment() {
                     private var searchQuery = ""
 
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        // Обрабатываем отправку поискового запроса
-                        // Возвращаем true, чтобы указать, что мы обработали событие
+
                         searchView.clearFocus()
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String): Boolean {
-                        // Обрабатываем изменение текста поискового запроса
                         searchQuery = newText
                         uiScope.launch {
                             flow {
@@ -277,12 +227,9 @@ class OneSourceLIstFragment : Fragment() {
                             }
                                 .debounce(300) // Устанавливаем задержку
                                 .collect { query ->
-                                    // Обрабатываем поисковый запрос после задержки
-                                    // Этот блок кода будет выполнен только после того, как пройдет 300 мс без изменения поискового запроса пользователем
                                     handleSearchQuery(query)
                                 }
                         }
-                        // Возвращаем false, чтобы SearchView выполнил действие по умолчанию
                         return false
                     }
                 })

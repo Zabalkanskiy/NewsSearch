@@ -17,7 +17,6 @@ class SourceListViewHolder(itemView: View) : ViewHolder(itemView){
         val sourceName = model.name ?: "Unknown source"
         nameAgency.text = sourceName
 
-        //no category need add
         categoryAgency.text = model.category
 
         when {

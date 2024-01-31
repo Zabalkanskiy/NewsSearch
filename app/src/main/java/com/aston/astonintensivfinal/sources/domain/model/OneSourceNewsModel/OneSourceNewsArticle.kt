@@ -5,8 +5,6 @@ import com.aston.astonintensivfinal.core.data.headlinesmodel.Source
 class OneSourceNewsArticle(
     val source: String,
 
-   // val idSource: String,
-
     val author: String,
 
 

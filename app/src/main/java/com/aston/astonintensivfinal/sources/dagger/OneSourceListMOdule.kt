@@ -53,14 +53,4 @@ abstract class OneSourceListMOdule {
     abstract fun bindHeadlinesFullNewsRepository(repository: HeadlinesFullNewsRepositoryImpl): HeadlinesFullNewsRepository
 
 
-
-    /*companion object {
-
-        @Provides
-        fun provideNewsDao(): NewsDao {
-            return AstonIntensivApplication.getAstonApplicationContext.newsDao
-        }
-    }
-
-     */
 }

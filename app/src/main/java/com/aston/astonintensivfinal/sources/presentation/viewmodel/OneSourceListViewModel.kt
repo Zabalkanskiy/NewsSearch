@@ -167,9 +167,9 @@ class OneSourceListViewModel @Inject constructor(
                             description = it.description,
                             url = it.url,
                             urlToImage = it.urlToImage,
-                            //convertDate
+
                             publishedAt = convertDateFormat(it.publishedAt),
-                            // publishedAt = it.publishedAt,
+
                             content = it.content,
                             idSource = it.idSource
                         )

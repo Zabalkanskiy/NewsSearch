@@ -162,7 +162,7 @@ class SourceListFragment : Fragment() {
         val searchItem = binding.oneSourceListToolbar.menu.findItem(R.id.top_bar_search)
         val searchView: SearchView = searchItem.actionView as SearchView
         searchItem.setOnMenuItemClickListener {
-            // Perform search when menu item is clicked
+
             searchView.requestFocus()
             true
         }
@@ -171,14 +171,13 @@ class SourceListFragment : Fragment() {
             private var searchQuery = ""
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                // Обрабатываем отправку поискового запроса
-                // Возвращаем true, чтобы указать, что мы обработали событие
+
                 searchView.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                // Обрабатываем изменение текста поискового запроса
+
                 searchQuery = newText
                 uiScope.launch {
                     flow {
@@ -186,12 +185,11 @@ class SourceListFragment : Fragment() {
                     }
                         .debounce(300) // Устанавливаем задержку
                         .collect { query ->
-                            // Обрабатываем поисковый запрос после задержки
-                            // Этот блок кода будет выполнен только после того, как пройдет 300 мс без изменения поискового запроса пользователем
+
                             handleSearchQuery(query)
                         }
                 }
-                // Возвращаем false, чтобы SearchView выполнил действие по умолчанию
+
                 return false
             }
         })
