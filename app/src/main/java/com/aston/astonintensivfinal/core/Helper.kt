@@ -56,9 +56,9 @@ fun Fragment.hasNetwork(context: Context): Boolean {
     return when {
         activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
         activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-        // for other device how are able to connect with Ethernet
+
         activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-        // for check internet over Bluetooth
+
         activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
         else -> false
     }
