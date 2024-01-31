@@ -4,5 +4,5 @@ import com.aston.astonintensivfinal.saved.domain.model.SavedNewsModelDomain
 
 interface LoadDataSavedListUseCase {
 
-  suspend  fun loadNewsFromDataBase(): List<SavedNewsModelDomain>
+  suspend  fun loadNewsFromDataBase(language: String): List<SavedNewsModelDomain>
 }

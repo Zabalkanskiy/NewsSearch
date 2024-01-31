@@ -11,4 +11,5 @@ data class SavedListModel(
     override val source: String,
     override val description: String,
     override val url: String,
+    override val idSource: String,
 ): NewsInterface
