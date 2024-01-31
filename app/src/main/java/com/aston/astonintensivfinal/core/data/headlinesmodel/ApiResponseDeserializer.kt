@@ -18,10 +18,10 @@ class ApiResponseDeserializer : JsonDeserializer<ApiResponse> {
             jsonObject.has("totalResults") -> {
                 Gson().fromJson(json, NewApiResponce::class.java)
             }
-            /* Здесь может быть логика для определения и десериализации второго типа успешного ответа */
+
             else -> throw JsonParseException("Unknown type of the response")
         }
     }
 }
 
-// Создайте экземпляр Gson с зарегистрированным десериализатором ApiResponseDeserializer
+

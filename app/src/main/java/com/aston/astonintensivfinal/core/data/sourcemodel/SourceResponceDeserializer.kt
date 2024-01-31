@@ -23,7 +23,7 @@ class SourceResponceDeserializer : JsonDeserializer<SourceResponse> {
             jsonObject.has("sources") -> {
                 Gson().fromJson(json, NewsSourceResponse::class.java)
             }
-            /* Здесь может быть логика для определения и десериализации второго типа успешного ответа */
+
             else -> throw JsonParseException("Unknown type of the response")
         }
     }
