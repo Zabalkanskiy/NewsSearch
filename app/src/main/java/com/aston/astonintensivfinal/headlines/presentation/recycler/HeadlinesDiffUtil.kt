@@ -5,7 +5,7 @@ import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterMo
 
 object HeadlinesDiffUtil: DiffUtil.ItemCallback<HPresenterNewsModelData>() {
     override fun areItemsTheSame(oldItem: HPresenterNewsModelData, newItem: HPresenterNewsModelData): Boolean {
-        //maybe wrong
+
         return oldItem.url == newItem.url
 
     }
@@ -13,5 +13,7 @@ object HeadlinesDiffUtil: DiffUtil.ItemCallback<HPresenterNewsModelData>() {
     override fun areContentsTheSame(oldItem: HPresenterNewsModelData, newItem: HPresenterNewsModelData): Boolean {
         return oldItem.equals(newItem)
     }
+
+
 }
 

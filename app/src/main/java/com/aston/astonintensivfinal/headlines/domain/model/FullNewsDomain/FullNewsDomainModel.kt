@@ -5,5 +5,8 @@ data class FullNewsDomainModel(
     val title: String,
     val content: String,
     val publishedAt: String,
-    val sourceName: String
+    val sourceName: String,
+    val description: String,
+    val url: String,
+    val idSource:String
 )

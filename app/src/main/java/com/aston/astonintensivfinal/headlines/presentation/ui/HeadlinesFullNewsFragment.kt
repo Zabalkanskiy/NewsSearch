@@ -1,7 +1,14 @@
 package com.aston.astonintensivfinal.headlines.presentation.ui
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.core.content.ContextCompat
+import androidx.core.os.BundleCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -22,6 +30,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.aston.astonintensivfinal.R
+import com.aston.astonintensivfinal.core.recycler.modelRecycler.NewsInterface
 import com.aston.astonintensivfinal.headlines.dagger.DaggerHeadlinesComponent
 import com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.fullNewsPresenter.FullNewsPresenterModel
 import com.aston.astonintensivfinal.headlines.presentation.presenter.FullNewsViewModel
@@ -38,13 +47,17 @@ const val TITLE = "TITLE"
 const val CONTENT = "CONTENT"
 const val PUBLISHEDAT = "PUBLISHEDAT"
 const val SOURCE = "SOURCE"
+const val URL = "URL"
+const val DESCRIPTION = "DESCRIPTION"
+const val FULLNEWSPRESENTERMODEL = "FULLNEWSPRESENTERMODEL"
 
-class HeadlinesFullNewsFragment : Fragment()  {
+class HeadlinesFullNewsFragment : Fragment() {
 
 
     lateinit var headlinesFullNewsViewModel: FullNewsViewModel
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var fullNewsPresenterModel: FullNewsPresenterModel
     lateinit var fullNewsMenuItem: MenuItem
@@ -63,31 +76,22 @@ class HeadlinesFullNewsFragment : Fragment()  {
     lateinit var imageNews: ImageView
 
 
-    lateinit var urlToImage: String
-    lateinit var titleNews: String
-    lateinit var content: String
-    lateinit var publishedAt: String
-    lateinit var source: String
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            urlToImage = it.getString(URLTOIMAGE, "")
-            titleNews = it.getString(TITLE, "")
-            content = it.getString(CONTENT, "")
-            publishedAt = it.getString(PUBLISHEDAT, "")
-            source = it.getString(SOURCE, "")
+
+            fullNewsPresenterModel = BundleCompat.getParcelable(it,FULLNEWSPRESENTERMODEL, FullNewsPresenterModel::class.java) as FullNewsPresenterModel
+
         }
 
         DaggerHeadlinesComponent.builder().build().inject(this)
-        headlinesFullNewsViewModel = ViewModelProvider(this, viewModelFactory).get(FullNewsViewModel::class.java)
-        headlinesFullNewsViewModel.checkIfNewsExists(title = titleNews, urlToImage = urlToImage)
+        headlinesFullNewsViewModel =
+            ViewModelProvider(this, viewModelFactory).get(FullNewsViewModel::class.java)
+        headlinesFullNewsViewModel.checkIfNewsExists(title = fullNewsPresenterModel.title, urlToImage = fullNewsPresenterModel.urlToImage)
 
 
-        fullNewsPresenterModel = FullNewsPresenterModel(urlToImage = urlToImage, titleNews = titleNews, content = content, publishedAt = publishedAt, source = source )
 
     }
 
@@ -112,54 +116,86 @@ class HeadlinesFullNewsFragment : Fragment()  {
         sourceTextView = view.findViewById(R.id.full_news_text_view_source)
         describeNews = view.findViewById(R.id.full_news_all_text_view)
         imageNews = view.findViewById(R.id.imageView)
+
         (activity as AppCompatActivity).setSupportActionBar(hedlinesFullNewsToolbar)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(true)
         headlinesFullNewsCollapsingToolbar.apply {
-            title = titleNews
+            title = fullNewsPresenterModel.title
             setExpandedTitleColor(ContextCompat.getColor(context, R.color.transparent_color))
             setCollapsedTitleTextColor(ContextCompat.getColor(context, R.color.white))
         }
 
-       // (activity as? AppCompatActivity)?.setSupportActionBar(hedlinesFullNewsToolbar)
+
         hedlinesFullNewsToolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
         hedlinesFullNewsToolbar.setNavigationOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        //hedlinesFullNewsToolbar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.system_prymary_color))
+
         Glide.with(this)
-            .load(urlToImage)
+            .load(fullNewsPresenterModel.urlToImage)
             .placeholder(R.drawable.placeholder_bage)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(imageNews)
-        titleNewsTextView.text = titleNews
-        dateTextView.text = publishedAt
-        sourceTextView.text = source
-        describeNews.text = content
+        titleNewsTextView.text = fullNewsPresenterModel.title
+        dateTextView.text = fullNewsPresenterModel.publishedAt
+        sourceTextView.text = fullNewsPresenterModel.source
+       // describeNews.text = fullNewsPresenterModel.content
+        val lastIndexChar = fullNewsPresenterModel.content.lastIndexOf("[")
+        if (fullNewsPresenterModel.content.isNotBlank() && lastIndexChar != -1) {
+            val spannableString = SpannableString(fullNewsPresenterModel.content)
+            val lastIndex = fullNewsPresenterModel.content.length - 1
 
-         menuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider{
+
+
+                val clickableSpan: ClickableSpan = object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        val browserIntent =
+                            Intent(Intent.ACTION_VIEW, Uri.parse(fullNewsPresenterModel.url))
+                        startActivity(browserIntent)
+
+                    }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        super.updateDrawState(ds)
+                        ds.isUnderlineText = false
+                    }
+                }
+                spannableString.setSpan(
+                    clickableSpan,
+                    lastIndexChar,
+                    lastIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                describeNews.text = spannableString
+                describeNews.movementMethod = LinkMovementMethod.getInstance()
+
+        } else {
+            dateTextView.text = fullNewsPresenterModel.content
+        }
+        menuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-               menuInflater.inflate(R.menu.full_news_menu, menu)
+                menuInflater.inflate(R.menu.full_news_menu, menu)
                 fullNewsMenuItem = menu.findItem(R.id.menu_full_news_save)
                 updateIcon()
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when(menuItem.itemId){
-                    R.id.menu_full_news_save-> {
-                        if (newsInDataBase){
+                return when (menuItem.itemId) {
+                    R.id.menu_full_news_save -> {
+                        if (newsInDataBase) {
                             headlinesFullNewsViewModel.deleteNews(fullNewsPresenterModel)
-                        } else{
+                        } else {
                             headlinesFullNewsViewModel.saveNews(fullNewsPresenterModel)
                         }
 
                         true
                     }
+
                     else -> false
                 }
             }
-
 
 
         }, viewLifecycleOwner)
@@ -170,21 +206,17 @@ class HeadlinesFullNewsFragment : Fragment()  {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 headlinesFullNewsViewModel.newsInDataBase.collect {
-                   updateFromFlowIcon(it)
+                    updateFromFlowIcon(it)
                 }
             }
         }
 
 
-
-
-
     }
 
-    fun updateFromFlowIcon(isInDatabase: Boolean){
+    fun updateFromFlowIcon(isInDatabase: Boolean) {
         newsInDataBase = isInDatabase
         requireActivity().invalidateOptionsMenu()
-
 
 
     }
@@ -199,27 +231,15 @@ class HeadlinesFullNewsFragment : Fragment()  {
     }
 
 
-
-
-
-
-
-
     companion object {
         fun newInstance(
-            urlToImage: String,
-            title: String,
-            content: String,
-            publishedAt: String,
-            source: String
+
+            fullNewsPresenterModel: FullNewsPresenterModel
         ): HeadlinesFullNewsFragment {
             return HeadlinesFullNewsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(URLTOIMAGE, urlToImage)
-                    putString(TITLE, title)
-                    putString(CONTENT, content)
-                    putString(PUBLISHEDAT, publishedAt)
-                    putString(SOURCE, source)
+
+                    putParcelable(FULLNEWSPRESENTERMODEL, fullNewsPresenterModel)
                 }
 
             }

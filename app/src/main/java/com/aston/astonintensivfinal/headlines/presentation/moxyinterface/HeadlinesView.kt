@@ -9,9 +9,13 @@ interface HeadlinesView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showData( totalResults: Int?, data: List<HPresenterNewsModelData>)
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showError(errorMessage: String)
 
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun networkError()
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun internalError()
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun changeTab()
 }

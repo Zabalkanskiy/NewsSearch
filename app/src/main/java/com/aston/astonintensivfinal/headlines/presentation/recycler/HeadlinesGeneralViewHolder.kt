@@ -17,7 +17,7 @@ class HeadlinesGeneralViewHolder(itemView: View) : ViewHolder(itemView) {
     val newsImage: ImageView = itemView.findViewById(R.id.recycler_view_headlines_image)
 
     fun bind(model: HPresenterNewsModelData){
-        val sourceName = model.source?.name ?: "Unknown source"
+        val sourceName = model.source ?: "Unknown source"
         nameNews.text = sourceName
 
         description.text = model.content

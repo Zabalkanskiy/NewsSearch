@@ -61,10 +61,14 @@ class FullNewsViewModel@Inject constructor(
     fun mapToFullNewsDomainModel(fullNewsPresenterModel: FullNewsPresenterModel): FullNewsDomainModel {
         return FullNewsDomainModel(
             urlToImage = fullNewsPresenterModel.urlToImage,
-            title = fullNewsPresenterModel.titleNews,
+            title = fullNewsPresenterModel.title,
             content = fullNewsPresenterModel.content,
             publishedAt = fullNewsPresenterModel.publishedAt,
-            sourceName = fullNewsPresenterModel.source
+            sourceName = fullNewsPresenterModel.source,
+            description = fullNewsPresenterModel.description,
+            url = fullNewsPresenterModel.url,
+            idSource = fullNewsPresenterModel.idSource
+
         )
     }
 

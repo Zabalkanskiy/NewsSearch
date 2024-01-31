@@ -1,6 +1,6 @@
 package com.aston.astonintensivfinal.headlines.data
 
-import com.aston.astonintensivfinal.data.databaseNews.NewsModel.NewsModelEntity
+import com.aston.astonintensivfinal.core.data.databaseNews.NewsModel.NewsModelEntity
 import com.aston.astonintensivfinal.headlines.domain.model.FullNewsDomain.FullNewsDomainModel
 
 interface HeadlinesFullNewsRepository {

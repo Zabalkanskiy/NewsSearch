@@ -1,7 +1,7 @@
 package com.aston.astonintensivfinal.headlines.dagger
 
 import com.aston.astonintensivfinal.AstonIntensivApplication
-import com.aston.astonintensivfinal.data.databaseNews.NewsModel.NewsDao
+import com.aston.astonintensivfinal.core.data.databaseNews.NewsModel.NewsDao
 import com.aston.astonintensivfinal.headlines.data.HeadlinesFullNewsRepository
 import com.aston.astonintensivfinal.headlines.data.HeadlinesFullNewsRepositoryImpl
 import com.aston.astonintensivfinal.headlines.data.HeadlinesRepository
@@ -19,9 +19,6 @@ abstract class HeadlinesFullNewsModule {
 
     @Binds
     abstract fun bindHeadlinesFullNewsRepository(repository: HeadlinesFullNewsRepositoryImpl): HeadlinesFullNewsRepository
-
-    // @Binds
-    // abstract fun bindHeadLinesFullNewsPresenter(headlinesFullNewsPresenter: HeadlinesFullNewsPresenter): MvpPresenter<HeadlinesFullNewsView>
 
     companion object {
 
