@@ -1,4 +1,4 @@
-package com.aston.astonintensivfinal.headlines.presentation.ui
+package com.aston.astonintensivfinal.core.recycler
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

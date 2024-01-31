@@ -8,8 +8,7 @@ import java.util.Date
 
 @Entity(tableName = "news")
 data class NewsModelEntity(
-   // @PrimaryKey(autoGenerate = true)
-   // val id: Long = 0,
+
 
     @PrimaryKey
     val urlToImage:String ,
