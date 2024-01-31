@@ -1,9 +1,187 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.AstonIntensivFinal" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Theme.AstonIntensivFinal" parent="Base.Theme.AstonIntensivFinal" />
+    <style name="Theme.AstonIntensivFinal" parent="Base.Theme.AstonIntensivFinal" >
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:statusBarColor">@color/system_prymary_color</item>
+        <item name="android:navigationBarColor">@color/system_prymary_color</item>
+        <item name="android:editTextStyle">@style/myEditText</item>
+
+    </style>
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/checked_on_icon</item>
+    </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/system_prymary_color</item>
+
+
+        <item name="windowSplashScreenAnimatedIcon">@raw/lotty_animation</item>
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.AstonIntensivFinal</item>
+    </style>
+
+    <style name="myEditText" parent="@android:style/Widget.Holo.Light.EditText">
+        <item name="android:textCursorDrawable">@drawable/my_cursor_drawable</item>
+    </style>
+
+    <style name="ThemeOverlay.Toobar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+
+        <item name="android:textCursorDrawable">@drawable/my_cursor_drawable</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.Button.RoundedCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="DatePickerTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/select_date</item>
+        <item name="backgroundColor">@color/white</item>
+
+        <item name="android:textColor">@color/range_select_name</item>
+        <item name="android:headerBackground">@color/white</item>
+
+
+        <item name="daySelectedStyle">@style/DaySelected</item>
+        <item name="dayTodayStyle">@style/CurrentDate</item>
+        <item name="rangeFillColor">@color/range_color</item>
+
+    </style>
+
+    <style name="Materialcalendarcustomstyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+
+        <item name="colorPrimary">@color/range_current_date_color</item>
+        <item name="colorSurface">@color/white</item>
+
+        <item name="backgroundColor">@color/white</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:headerBackground">@color/white</item>
+
+        <item name="android:datePickerStyle">@style/MyDateStyle</item>
+        <item name="headerLayout">@color/white</item>
+
+        <item name="background">@color/white</item>
+       <item name="colorOnPrimary">@color/white</item>
+        <item name="materialCalendarHeaderTitle">@style/CustomPickerMyTitleTheme</item>
+        <item name="materialCalendarHeaderSelection">@style/CustomPickermaterialCalendarHeaderSelection</item>
+        <item name="materialCalendarHeaderToggleButton">@style/MyToggleButton</item>
+
+        <item name="android:textColorPrimary">@color/range_select_name</item>
+
+
+
+    </style>
+
+
+    <style name="MyDateStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">#fff</item> <!-- header background color -->
+    </style>
+    <style name="MyToggleButton" parent="@style/Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="background">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
+    </style>
+
+    <style name="CustomPicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="backgroundColor">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+
+        <item name="materialCalendarHeaderTitle">@style/CustomPickerMyTitleTheme</item>
+        <item name="materialCalendarHeaderSelection">@style/CustomPickermaterialCalendarHeaderSelection</item>
+        <item name="dayTodayStyle">@style/CustomPickerDayTodayStyle</item>
+        <item name="daySelectedStyle">@style/CustomPickerDaySelectedStyle</item>
+    </style>
+
+    <style name="CustomPickerMyTitleTheme" parent="@style/Widget.MaterialComponents.MaterialCalendar.HeaderTitle">
+        <item name="android:textColor">@color/range_select_name</item>
+    </style>
+    
+    <style name="CustomPickermaterialCalendarHeaderSelection" parent="@style/Widget.MaterialComponents.MaterialCalendar.HeaderSelection">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CustomPickerDayTodayStyle" parent="@style/Widget.MaterialComponents.MaterialCalendar.Day.Today">
+        <item name="itemTextColor">@color/range_current_date_color</item>
+        <item name="itemStrokeColor">@color/range_current_date_color</item>
+
+    </style>
+    <style name="CustomPickerDaySelectedStyle" parent="@style/Widget.MaterialComponents.MaterialCalendar.Day.Selected">
+        <item name="android:background">@color/range_current_date_color</item>
+
+    </style>
+
+
+    <style name="DaySelected" parent="Widget.MaterialComponents.MaterialCalendar.Day.Selected">
+        <item name="itemFillColor">@color/range_button</item>
+        <item name="itemTextColor">@color/white</item>
+
+    </style>
+
+    <style name="CurrentDate" parent="Widget.MaterialComponents.MaterialCalendar.Day.Today">
+        <item name="itemTextColor">@color/range_current_date_color</item>
+        <item name="itemStrokeColor">@color/range_current_date_color</item>
+    </style>
+
+
+    <style name="MyCalendarStyle" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="daySelectedStyle">@style/MyDaySelectedStyle</item>
+        <item name="rangeFillColor">#00FF00</item>
+    </style>
+
+    <style name="MyDaySelectedStyle" parent="Widget.MaterialComponents.MaterialCalendar.Day.Selected">
+        <item name="itemFillColor">#FF0000</item>
+        <item name="itemTextColor">#FFFFFF</item>
+        <item name="itemStrokeColor">#0000FF</item>
+        <item name="itemStrokeWidth">2dp</item>
+    </style>
+
+    <style name="MyRangeFillStyle" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="rangeFillColor">#00FF00</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+
+    </style>
+
+    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+        <item name="android:textColorPrimaryInverse">#000</item>
+        <item name="android:textColorSecondaryInverse">#000</item>
+
+        <item name="android:colorAccent">#B09A60</item>
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/white</item>
+    </style>
+
+
+
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+        <item name="colorPrimary">@color/range_current_date_color</item>
+
+        <item name="rangeFillColor">@color/range_current_date_color</item>
+
+    </style>
+
+    <style name="MyThree" parent="@style/Widget.Material3.MaterialCalendar">
+        <item name="colorPrimary">@color/range_current_date_color</item>
+
+        <item name="rangeFillColor">@color/range_current_date_color</item>
+    </style>
+
+
+    <style name="materialCalendarStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/range_current_date_color</item>
+
+        <item name="rangeFillColor">@color/range_current_date_color</item>
+    </style>
 </resources>

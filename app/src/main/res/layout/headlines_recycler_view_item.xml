@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F8F9FB">
+
+    <ImageView
+        android:id="@+id/recycler_view_headlines_image"
+        android:layout_width="114dp"
+        android:layout_height="64dp"
+        android:contentDescription="@string/image_news"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/recycler_view_headlines_image_bage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/cnn"
+        android:contentDescription="@string/bage_news"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/recycler_view_headlines_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recycler_view_headlines_item_text_view_name_news_agency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+
+        android:singleLine="true"
+        android:text="@string/placeholder_name_news"
+        android:textColor="#191C1D"
+        android:textSize="11sp"
+
+        app:layout_constraintStart_toEndOf="@+id/recycler_view_headlines_image_bage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recycler_view_headlines_item_text_view_description"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/placeholder_news"
+        android:textColor="#191C1D"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/recycler_view_headlines_image"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_headlines_image_bage" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="#BFC8CC"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_headlines_image"
+        tools:layout_editor_absoluteX="-12dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

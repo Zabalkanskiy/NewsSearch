@@ -2,4 +2,23 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="system_prymary_color">#009EBD</color>
+    <color name="checked_on_icon">#00829C</color>
+    <color name="surface_recycler">#F8F9FB</color>
+    <color name="text_color">#40484B</color>
+    <color name="color_text_tab_layout">#FBFCFE</color>
+    <color name="gray_text">#40484B</color>
+    <color name="text_agency">#191C1D</color>
+    <color name="full_news_title_background">#BFC8CC</color>
+    <color name="surface">#F8F9FB</color>
+    <color name="transparent_color">#00FFFFFF</color>
+    <color name="proggress_color">#00677C</color>
+    <color name="gray_icon">#40484B</color>
+    <color name="refresh_text">#70787C</color>
+    <color name="range_color">#CEE7F0</color>
+    <color name="select_date">#00677C</color>
+    <color name="range_button">#00677C</color>
+    <color name="range_background">#FFFBFE</color>
+    <color name="range_current_date_color">#00677C</color>
+    <color name="range_select_name">#40484B</color>
 </resources>
