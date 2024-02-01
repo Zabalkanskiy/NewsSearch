@@ -1,8 +1,11 @@
 # NewsApp
 
-Приложение для просмотра Новостей для android 
+Приложение для просмотра Новостей для android
+  
 Написано на Kotlin
+  
 Использует библиотеки основные: Dagger2, Retrofit, RxJava, Coroutines, Room, mvp.moxy
+  
 При напсании реализованы подходы clean, mvp, mvvm
 
 
