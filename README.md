@@ -4,7 +4,7 @@
   
 Написано на Kotlin
   
-Использует библиотеки основные: Dagger2, Retrofit, RxJava, Coroutines, Room, mvp.moxy
+Использует библиотеки : Dagger2, Retrofit, RxJava, Coroutines, Room, mvp.moxy, glide, swiperefreshlayout, orbit-mvi, lottie  
   
 При напсании реализованы подходы clean, mvp, mvvm
 
