@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomNavigationView_headlines"
+        android:enabled="true"
+        android:icon="@drawable/icon_hamburger"
+        android:title="@string/headlines"/>
+
+    <item
+        android:id="@+id/bottomNavigationView_saved"
+        android:enabled="true"
+        android:icon="@drawable/flag"
+        android:title="@string/saved"/>
+
+    <item
+        android:id="@+id/bottomNavigationView_sourсes"
+        android:enabled="true"
+        android:icon="@drawable/icon"
+        android:title="@string/sour_es"/>
+
+
+</menu>
