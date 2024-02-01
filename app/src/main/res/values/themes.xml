@@ -5,7 +5,7 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
-    <style name="Theme.AstonIntensivFinal" parent="Base.Theme.AstonIntensivFinal" >
+    <style name="Theme.SearchNews" parent="Base.Theme.AstonIntensivFinal" >
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:statusBarColor">@color/system_prymary_color</item>
         <item name="android:navigationBarColor">@color/system_prymary_color</item>
@@ -23,7 +23,7 @@
         <item name="windowSplashScreenAnimatedIcon">@raw/lotty_animation</item>
         <item name="windowSplashScreenAnimationDuration">3000</item>
 
-        <item name="postSplashScreenTheme">@style/Theme.AstonIntensivFinal</item>
+        <item name="postSplashScreenTheme">@style/Theme.SearchNews</item>
     </style>
 
     <style name="myEditText" parent="@android:style/Widget.Holo.Light.EditText">

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.aston.astonintensivfinal"
+    namespace = "com.search.news"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.aston.astonintensivfinal"
+        applicationId = "com.search.news"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

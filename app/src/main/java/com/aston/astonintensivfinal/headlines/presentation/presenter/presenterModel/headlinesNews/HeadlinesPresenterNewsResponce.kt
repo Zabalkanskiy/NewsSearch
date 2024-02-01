@@ -1,3 +1,0 @@
-package com.aston.astonintensivfinal.headlines.presentation.presenter.presenterModel.headlinesNews
-
-sealed class HeadlinesPresenterNewsResponce
